@@ -132,7 +132,7 @@ def Heatmapplotter(column1,column2):
                               values=list(categories))
     
     plt.figure(figsize=(8, 6))
-    sns.heatmap(pivotAux, annot=True, cmap='coolwarm', fmt='d')
+    sns.heatmap(pivotAux, annot=True, cmap='YlGnBu', fmt='d')
    
     plt.title('Heatmap of Variable Relationships')
     plt.xticks(rotation=15, ha='right') 

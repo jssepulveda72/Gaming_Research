@@ -4,10 +4,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from func import *
 plt.close()
+frequencies = dict()
 
 survey = pd.read_excel("Gaming_Survey_Responses.xlsx")
 
-
+#Erase columns with irrelevant information
 survey = survey.drop(["Timestamp","Location",'How often do you play video games?',
                         'How many hours do you typically spend gaming in a week?',
                         'Which device do you play games on the most?(Check all that apply)',
@@ -18,6 +19,7 @@ survey = survey.drop(["Timestamp","Location",'How often do you play video games?
                         'How much do you spend on gaming monthly (including in-game purchases, new games, etc.)?',
                         'Why do you play video games? (Check all that apply)'],axis= 1)
 
+#Rename columns for easier handling
 survey.columns = ['Age', 'Gender', 
        'Frequency',
        'Hours/week',
@@ -35,19 +37,16 @@ for column in survey.columns[2:]:
     survey[column] = Cleaner(survey[column])
     
 
-for column1 in survey.columns[1:2]:
-    for column2 in survey.columns[4:5]:
-        Heatmapplotter(survey[column1], survey[column2])
-
-
-
-# frequencies = dict()
-# for column in survey.columns[2:]:
+# for column1 in survey.columns[0:2]:
+#     for column2 in survey.columns[2:]:
+Heatmapplotter(survey["Gender"], survey["Spend/monthly"])
+frequencies['Hours/week'] = Itemcounter(survey['Hours/week']) 
+frequencies['Devices'] = Itemcounter(survey['Devices']) 
+frequencies['Genres'] = Itemcounter(survey['Genres']) 
+frequencies['Find new games'] = Itemcounter(survey['Find new games']) 
     
-#       frequencies[column] = Itemcounter(survey[column])
-    
-# for item in frequencies.keys():
-#       Histogramplotter(frequencies[item], item)
+for item in frequencies.keys():
+      Histogramplotter(frequencies[item], item)
 
  
 
