@@ -7,9 +7,9 @@ plt.close()
 
 survey = pd.read_excel("Gaming_Survey_Responses.xlsx")
 
-survey["Gender"] = np.where(survey["Gender"]=="Male",0,1) #Male = 0 Female =1 
+#survey["Gender"] = np.where(survey["Gender"]=="Male",0,1) #Male = 0 Female =1 
 
-survey = survey.drop(["Timestamp",'How often do you play video games?',
+survey = survey.drop(["Timestamp","Location",'How often do you play video games?',
                         'How many hours do you typically spend gaming in a week?',
                         'Which device do you play games on the most?(Check all that apply)',
                         'What genres of video games do you play? (Check all that apply)',
@@ -19,7 +19,7 @@ survey = survey.drop(["Timestamp",'How often do you play video games?',
                         'How much do you spend on gaming monthly (including in-game purchases, new games, etc.)?',
                         'Why do you play video games? (Check all that apply)'],axis= 1)
 
-survey.columns = ['Age', 'Gender', 'Location',
+survey.columns = ['Age', 'Gender', 
        'Frequency',
        'Hours/week',
        'Devices',
@@ -31,18 +31,25 @@ survey.columns = ['Age', 'Gender', 'Location',
        'Reason',]
        
 
+survey["Gender"] = Cleaner(survey["Gender"])
+for column in survey.columns[2:]:
+    survey[column] = Cleaner(survey[column])
+    
 
-
+for column1 in survey.columns[1:2]:
+    for column2 in survey.columns[4:5]:
+        Heatmapplotter(survey[column1], survey[column2])
 
 
 
 frequencies = dict()
-for column in survey.columns[3:]:
+for column in survey.columns[2:]:
     
-    frequencies[column] = Itemcounter(survey[column])
+      frequencies[column] = Itemcounter(survey[column])
     
 for item in frequencies.keys():
-    Histogramplotter(frequencies[item], item)
+      Histogramplotter(frequencies[item], item)
+
  
 
 
