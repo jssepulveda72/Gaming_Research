@@ -7,7 +7,6 @@ plt.close()
 
 survey = pd.read_excel("Gaming_Survey_Responses.xlsx")
 
-#survey["Gender"] = np.where(survey["Gender"]=="Male",0,1) #Male = 0 Female =1 
 
 survey = survey.drop(["Timestamp","Location",'How often do you play video games?',
                         'How many hours do you typically spend gaming in a week?',
@@ -42,13 +41,13 @@ for column1 in survey.columns[1:2]:
 
 
 
-frequencies = dict()
-for column in survey.columns[2:]:
+# frequencies = dict()
+# for column in survey.columns[2:]:
     
-      frequencies[column] = Itemcounter(survey[column])
+#       frequencies[column] = Itemcounter(survey[column])
     
-for item in frequencies.keys():
-      Histogramplotter(frequencies[item], item)
+# for item in frequencies.keys():
+#       Histogramplotter(frequencies[item], item)
 
  
 
